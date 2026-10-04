@@ -9,6 +9,17 @@ const WHATSAPP_CHAT_URL = "https://wa.me/923378029920";
 const CONTACT_EMAIL = "gloabalcareerstudio@gmail.com";
 const BRAND_MARK_URL = `${import.meta.env.BASE_URL}images/global-career-mark.webp`;
 const TEAM_PHOTO_BASE_URL = `${import.meta.env.BASE_URL}images/team/`;
+const RESUME_SAMPLES = Array.from({ length: 4 }, (_, index) => {
+  const number = String(index + 1).padStart(2, "0");
+  return {
+    src: `${import.meta.env.BASE_URL}images/resume-samples/resume-sample-${number}.webp`,
+    alt: `Resume sample ${index + 1} with personal details hidden`,
+  };
+});
+const REVIEW_SCREENSHOTS = Array.from({ length: 20 }, (_, index) => {
+  const number = String(index + 1).padStart(2, "0");
+  return `${import.meta.env.BASE_URL}images/reviews/client-review-${number}.png`;
+});
 
 type TeamMember = {
   name: string;
@@ -106,6 +117,7 @@ function App() {
             <a href="#home" onClick={closeMenu} data-testid="link-nav-home">Home</a>
             <a href="#services" onClick={closeMenu} data-testid="link-nav-services">Services</a>
             <a href="#team" onClick={closeMenu} data-testid="link-nav-team">Team</a>
+            <a href="#reviews" onClick={closeMenu} data-testid="link-nav-reviews">Reviews</a>
             <a href="#contact" onClick={closeMenu} data-testid="link-nav-contact">Contact</a>
             <a className="nav-cta" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" onClick={closeMenu} data-testid="link-header-review">Book Free Resume Review <span aria-hidden="true">↗</span></a>
           </nav>
@@ -170,23 +182,45 @@ function App() {
               <p>Explore our successful resume and cover letter templates.</p>
               <a className="button button-primary" href="#sample-gallery" data-testid="button-view-samples">View Samples <span aria-hidden="true">↓</span></a>
             </div>
-            <div className="sample-gallery" id="sample-gallery" aria-label="Portfolio sample placeholders">
-              <article className="sample-preview resume-preview reveal" data-testid="sample-resume-preview">
-                <div className="preview-head"><span>RESUME</span><span className="preview-placeholder">PLACEHOLDER PREVIEW</span></div>
-                <div className="preview-body" aria-label="Resume sample placeholder" data-testid="sample-resume-placeholder">
-                  <div className="preview-profile"><span className="preview-avatar" /><div><i className="line line-title" /><i className="line line-small" /></div></div>
-                  <i className="line line-heading" /><i className="line" /><i className="line line-medium" /><i className="line line-heading second" /><i className="line" /><i className="line line-short" />
-                  <div className="preview-tags"><i /><i /><i /></div>
-                </div>
-                <span className="preview-edit">Sample placeholder</span>
-              </article>
-              <article className="sample-preview letter-preview reveal delay-1" data-testid="sample-cover-letter-preview">
-                <div className="preview-head"><span>COVER LETTER</span><span className="preview-placeholder">PLACEHOLDER PREVIEW</span></div>
-                <div className="letter-paper" aria-label="Cover letter sample placeholder" data-testid="sample-cover-letter-placeholder">
-                  <i className="line line-title" /><i className="line line-short" /><i className="line line-heading second" /><i className="line" /><i className="line" /><i className="line line-medium" /><i className="line line-heading second" /><i className="line" /><i className="line line-short" />
-                </div>
-                <span className="preview-edit">Sample placeholder</span>
-              </article>
+            <div className="sample-gallery portfolio-grid" id="sample-gallery" aria-label="Resume sample gallery">
+              {RESUME_SAMPLES.map((sample, index) => (
+                <a
+                  className="portfolio-card reveal"
+                  href={sample.src}
+                  key={sample.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open resume sample ${index + 1} in a new tab`}
+                  data-testid={`sample-resume-${index + 1}`}
+                >
+                  <span className="portfolio-image"><img src={sample.src} alt={sample.alt} loading="lazy" /></span>
+                  <span className="portfolio-caption"><span>Resume sample {index + 1}</span><span>Open full size ↗</span></span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section client-reviews" id="reviews">
+          <div className="wrap">
+            <div className="section-heading reveal">
+              <div><div className="eyebrow"><span className="eyebrow-line" />Client feedback</div><h2>What clients <em>say.</em></h2></div>
+              <p>Original client review screenshots shared with Global Career Studio.</p>
+            </div>
+            <div className="review-screenshot-grid" aria-label="Client review screenshots">
+              {REVIEW_SCREENSHOTS.map((src, index) => (
+                <a
+                  className="review-screenshot reveal"
+                  href={src}
+                  key={src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open client review screenshot ${index + 1} in a new tab`}
+                  data-testid={`client-review-${index + 1}`}
+                >
+                  <img src={src} alt={`Client review screenshot ${index + 1}`} loading="lazy" />
+                </a>
+              ))}
             </div>
           </div>
         </section>
