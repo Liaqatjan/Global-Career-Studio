@@ -1,19 +1,111 @@
+import { useEffect, useState } from "react";
+import { BriefcaseBusiness, FileText, FolderOpen, Mail, Linkedin } from "lucide-react";
+import { SiFacebook, SiInstagram, SiWhatsapp, SiX } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa6";
+
+const WHATSAPP_REVIEW_URL =
+  "https://wa.me/923378029920?text=Hello%20Global%20Career%20Studio%2C%20I%20would%20like%20to%20book%20a%20free%20resume%20review.";
+const WHATSAPP_CHAT_URL = "https://wa.me/923378029920";
+
+type TeamMember = {
+  name: string;
+  title: string;
+  experience: string;
+  linkedin: string | null;
+  photo: string | null;
+};
+
+// Keep the editable team records together; photos remain null until supplied.
+const TEAM: TeamMember[] = [
+  { name: "Liaqat Ali", title: "Agency Owner", experience: "", linkedin: null, photo: null },
+  { name: "Sami Ullah Shah", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "7+ Years", linkedin: "https://www.linkedin.com/in/sami-ullah-shah-a0b921207/", photo: null },
+  { name: "Shuja Uddin", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "9+ Years", linkedin: "https://www.linkedin.com/in/shuja-uddin-5a0361236/", photo: null },
+  { name: "Nisar Ahmed", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "10+ Years", linkedin: "https://www.linkedin.com/in/nisar-ahmed-498130244/", photo: null },
+  { name: "Uzair Ahmed", title: "ATS Resume Writer & LinkedIn Optimization Specialist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/uzair-ahmed-0bb75b257/", photo: null },
+  { name: "Uzair Farooq", title: "Professional Resume Writer & LinkedIn Profile Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/uzair-farooq-240246260/", photo: null },
+  { name: "Mehr Biyar", title: "ATS Resume & LinkedIn Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/mehr-biyar-6a3339257/", photo: null },
+  { name: "Waqas Hassni", title: "Professional Resume Writer & LinkedIn Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/waqas-hassni-758331246/", photo: null },
+  { name: "Muhammad Arsalan", title: "Resume Writer, LinkedIn Profile Specialist & Cover Letter Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/muhammad-arsalan-9765092a0/", photo: null },
+  { name: "Sudais Ahmed", title: "Professional Resume Writer & LinkedIn Specialist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/sudais-ahmed/", photo: null },
+  { name: "Mudassir Ahmed", title: "ATS Resume Specialist, LinkedIn Optimization Expert & Cover Letter Strategist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/mudassir-ahmed-b7485b35a/", photo: null },
+];
+
+const SERVICES = [
+  { number: "01", title: "Resume Writing", description: "Crafting ATS-friendly resumes designed to attract top recruiters worldwide.", icon: FileText },
+  { number: "02", title: "Cover Letter", description: "Compelling and custom cover letters highlighting your unique skills.", icon: Mail },
+  { number: "03", title: "LinkedIn Optimization", description: "Enhancing your profile to stand out in the global job market.", icon: Linkedin },
+  { number: "04", title: "Job Application Assistance", description: "We proactively apply for relevant jobs for you in various industries.", icon: BriefcaseBusiness },
+  { number: "05", title: "Portfolio & Samples", description: "Explore our successful resume and cover letter templates.", icon: FolderOpen },
+];
+
+const SOCIALS = [
+  { name: "Facebook", href: "https://web.facebook.com/profile.php?id=61574395491287" },
+  { name: "Instagram", href: "https://www.instagram.com/globalcareerstudio/" },
+  { name: "X", href: "https://x.com/GlobalCareer001" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/globalcareerstudio" },
+];
+
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const targets = document.querySelectorAll<HTMLElement>(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach((target) => target.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.12 },
+    );
+    targets.forEach((target) => observer.observe(target));
+    return () => observer.disconnect();
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
+  const submitContact = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const message = [
+      "Hello Global Career Studio,",
+      `My name is ${String(form.get("name") ?? "").trim()}.`,
+      `My email is ${String(form.get("email") ?? "").trim()}.`,
+      `Message: ${String(form.get("message") ?? "").trim()}`,
+    ].join("\n");
+    window.open(`${WHATSAPP_CHAT_URL}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="site">
       <header className="header">
         <div className="wrap header-inner">
-          <a className="brand" href="#home" aria-label="Aapka Business, shuru">
-            <span className="brand-mark">A</span>
-            <span>Aapka Business</span>
+          <a className="brand" href="#home" aria-label="Global Career Studio home" data-testid="link-home">
+            <span className="brand-mark" aria-hidden="true">G</span>
+            <span>Global Career <b>Studio</b></span>
           </a>
-          <nav className="nav" aria-label="Asal navigation">
-            <a href="#services">Khidmaat</a>
-            <a href="#about">Hamare baare mein</a>
-            <a href="#process">Tareeqa</a>
-            <a href="#faq">Aksar poochay gaye</a>
+          <button
+            className={`menu-toggle${menuOpen ? " active" : ""}`}
+            type="button"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            aria-controls="primary-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+            data-testid="button-mobile-menu"
+          >
+            <span /><span /><span />
+          </button>
+          <nav id="primary-navigation" className={`nav${menuOpen ? " nav-open" : ""}`} aria-label="Main navigation">
+            <a href="#home" onClick={closeMenu} data-testid="link-nav-home">Home</a>
+            <a href="#services" onClick={closeMenu} data-testid="link-nav-services">Services</a>
+            <a href="#team" onClick={closeMenu} data-testid="link-nav-team">Team</a>
+            <a href="#contact" onClick={closeMenu} data-testid="link-nav-contact">Contact</a>
+            <a className="nav-cta" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" onClick={closeMenu} data-testid="link-header-review">Book Free Resume Review <span aria-hidden="true">↗</span></a>
           </nav>
-          <a className="nav-cta" href="#contact">Rabita karein <span aria-hidden="true">↗</span></a>
         </div>
       </header>
 
@@ -21,130 +113,176 @@ function App() {
         <section className="hero" id="home">
           <div className="wrap hero-grid">
             <div className="hero-copy reveal">
-              <div className="eyebrow">Aap ke qareeb, aap ke liye</div>
-              <h1 className="display">Kaam ho<br />aasaan. <em>Rishta</em><br />rahe khaas.</h1>
-              <p className="hero-desc">Rozmarrah ki zarooriyat ke liye seedhi, bharosemand madad. Aap batayein kya chahiye — baqi baat hum mil kar samajh lete hain.</p>
+              <div className="eyebrow"><span className="eyebrow-line" />Career documents for a global search</div>
+              <h1>Transform Your<br /><span>Career Globally</span></h1>
+              <p className="hero-desc">Professional Resume Writing, Cover Letter, and LinkedIn Optimization tailored for European and international industries to land your dream remote job.</p>
               <div className="hero-actions">
-                <a className="button" href="#services">Khidmaat dekhein <span aria-hidden="true">↗</span></a>
-                <a className="text-link" href="#contact">Rabtay ka tareeqa <span aria-hidden="true">→</span></a>
+                <a className="button button-primary" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-get-started">Get Started Today <span aria-hidden="true">↗</span></a>
+                <a className="button button-outline" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-hero-review">Book Free Resume Review</a>
               </div>
+              <p className="trust-line"><span className="trust-dot" /> ATS-Optimized <i /> Globally Focused <i /> Success-Based Model</p>
             </div>
-            <div className="hero-art reveal delay-1" aria-label="Sukoon bhara abstract illustration">
-              <div className="stamp">Aapka<br />apna<br />business</div>
-              <div className="art-frame">
-                <div className="sun-disc" />
-                <div className="arch"><div className="arch-inner" /></div>
-                <div className="stem one"><i className="leaf l1" /><i className="leaf l2" /></div>
-                <div className="stem two"><i className="leaf l3" /><i className="leaf l4" /></div>
+            <div className="hero-visual reveal delay-1" aria-label="Abstract career document illustration">
+              <div className="orbit orbit-one" /><div className="orbit orbit-two" />
+              <div className="hero-spark spark-one" /><div className="hero-spark spark-two" />
+              <div className="resume-sheet">
+                <div className="sheet-top"><span className="sheet-avatar">GC</span><span className="sheet-status">CAREER PROFILE</span></div>
+                <div className="sheet-title-line" /><div className="sheet-sub-line" />
+                <div className="sheet-rule" />
+                <span className="sheet-label">EXPERIENCE</span>
+                <div className="sheet-line wide" /><div className="sheet-line" /><div className="sheet-line short" />
+                <div className="sheet-section"><span className="sheet-label">SKILLS</span><div className="skill-row"><i /><i /><i /></div></div>
+                <span className="sheet-check" aria-hidden="true">✓</span>
               </div>
-              <div className="art-note">Baat se shuru, bharosay tak.</div>
+              <div className="visual-caption"><span className="caption-mark">GC</span><span>Make your next move<br /><b>feel like your best one.</b></span></div>
+              <div className="visual-index">01 <span /> GLOBAL CAREER STUDIO</div>
             </div>
           </div>
+          <div className="hero-bottom-line" />
         </section>
-
-        <div className="marquee" aria-label="Hamari soch">
-          <div className="wrap marquee-inner">
-            <span>Seedhi baat <i>✳</i></span><span>Saaf mashwara <i>✳</i></span><span>Aapki sahulat <i>✳</i></span><span>Apna sa rawayya <i>✳</i></span>
-          </div>
-        </div>
 
         <section className="section services" id="services">
           <div className="wrap">
-            <div className="section-heading">
-              <div><div className="eyebrow">Hum kis tarah madad karte hain</div><h2 className="display">Kaam ki baat,<br />bina uljhan.</h2></div>
-              <p>Yeh jagah aap apni asal khidmaat ke mutabiq asaani se badal sakte hain. Har service ke saath ek chhoti si wazahat dein.</p>
+            <div className="section-heading reveal">
+              <div><div className="eyebrow"><span className="eyebrow-line" />What we do</div><h2>Make every part<br />of your profile <em>count.</em></h2></div>
+              <p>Thoughtful career documents and application support, built around your next opportunity.</p>
             </div>
             <div className="service-grid">
-              <article className="service-card"><span className="service-num">01 / Khidmat</span><h3>Service ka naam</h3><p>Yahan apni pehli khidmat ka mukhtasar aur saaf ta'aruf likhein.</p><span className="card-arrow" aria-hidden="true">↗</span></article>
-              <article className="service-card"><span className="service-num">02 / Madad</span><h3>Kaam ki qisam</h3><p>Batayein ke yeh kaam kis zaroorat mein kaam aata hai.</p><span className="card-arrow" aria-hidden="true">↗</span></article>
-              <article className="service-card"><span className="service-num">03 / Mashwara</span><h3>Mazeed sahulat</h3><p>Apni teesri peshkash ya kisi khaas option ki tafseel dein.</p><span className="card-arrow" aria-hidden="true">↗</span></article>
+              {SERVICES.map((service) => (
+                <article className={`service-card reveal service-${service.number}`} key={service.number} data-testid={`card-service-${service.number}`}>
+                  <div className="service-card-top"><span className="service-icon" aria-hidden="true"><service.icon size={19} strokeWidth={1.8} /></span><span className="service-num">{service.number}</span></div>
+                  <h3>{service.title}</h3><p>{service.description}</p>
+                  {service.number === "05" && <a className="sample-link" href="#samples" data-testid="link-view-samples">View Samples <span aria-hidden="true">↗</span></a>}
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="section">
-          <div className="wrap about" id="about">
-            <div className="about-visual">
-              <span className="about-mark">apna</span>
-              <div className="about-quote">“Pehle samajhna,<br />phir kaam shuru karna.”</div>
+        <section className="samples section" id="samples">
+          <div className="wrap samples-layout">
+            <div className="samples-copy reveal">
+              <div className="eyebrow"><span className="eyebrow-line" />Portfolio & samples</div>
+              <h2>Clear, polished.<br /><em>Ready to be yours.</em></h2>
+              <p>Explore our successful resume and cover letter templates.</p>
+              <a className="button button-primary" href="#sample-gallery" data-testid="button-view-samples">View Samples <span aria-hidden="true">↓</span></a>
             </div>
-            <div className="about-copy">
-              <div className="eyebrow">Chhota business, apna rawayya</div>
-              <h2 className="display">Har baat mein insaniyat.</h2>
-              <p>Aapka Business ek owner-run local business ke liye tayyar kiya gaya safha hai. Yahan apna chhota sa ta'aruf dein: aap kaun hain, kya kaam karte hain, aur customers aapse kis tarah rabta kar sakte hain.</p>
-              <p>Apni asli kahani aur kaam ka andaaz likhein — saadgi se, apne alfaaz mein.</p>
-              <div className="about-points">
-                <div className="about-point"><span className="point-dot">01</span> Seedha rabta, seedhi baat</div>
-                <div className="about-point"><span className="point-dot">02</span> Zaroorat ke mutabiq mashwara</div>
-                <div className="about-point"><span className="point-dot">03</span> Kaam se pehle wazeh tafseel</div>
-              </div>
+            <div className="sample-gallery" id="sample-gallery" aria-label="Portfolio sample placeholders">
+              <article className="sample-preview resume-preview reveal" data-testid="sample-resume-preview">
+                <div className="preview-head"><span>RESUME</span><span className="preview-placeholder">PLACEHOLDER PREVIEW</span></div>
+                <div className="preview-body" aria-label="Resume sample placeholder" data-testid="sample-resume-placeholder">
+                  <div className="preview-profile"><span className="preview-avatar" /><div><i className="line line-title" /><i className="line line-small" /></div></div>
+                  <i className="line line-heading" /><i className="line" /><i className="line line-medium" /><i className="line line-heading second" /><i className="line" /><i className="line line-short" />
+                  <div className="preview-tags"><i /><i /><i /></div>
+                </div>
+                <span className="preview-edit">Sample placeholder</span>
+              </article>
+              <article className="sample-preview letter-preview reveal delay-1" data-testid="sample-cover-letter-preview">
+                <div className="preview-head"><span>COVER LETTER</span><span className="preview-placeholder">PLACEHOLDER PREVIEW</span></div>
+                <div className="letter-paper" aria-label="Cover letter sample placeholder" data-testid="sample-cover-letter-placeholder">
+                  <i className="line line-title" /><i className="line line-short" /><i className="line line-heading second" /><i className="line" /><i className="line" /><i className="line line-medium" /><i className="line line-heading second" /><i className="line" /><i className="line line-short" />
+                </div>
+                <span className="preview-edit">Sample placeholder</span>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="review-band">
+          <div className="wrap review-inner reveal">
+            <div><span className="review-kicker">A clear first step</span><h2>Not sure where your resume stands?<br /><em>Get a free expert review.</em></h2></div>
+            <a className="button button-light" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-review-banner">Book Free Resume Review on WhatsApp <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
+
+        <section className="section team-section" id="team">
+          <div className="wrap">
+            <div className="section-heading team-heading reveal">
+              <div><div className="eyebrow"><span className="eyebrow-line" />About & team</div><h2>People behind<br />your next <em>chapter.</em></h2></div>
+              <p>Global Career Studio supports people applying to international opportunities with resume writing, cover letters, LinkedIn optimization and job application assistance.</p>
+            </div>
+            <div className="team-grid">
+              {TEAM.map((member, index) => (
+                <article className={`team-card${index === 0 ? " owner-card" : ""} reveal`} key={member.name} data-testid={`card-team-${index}`}>
+                  <div className="team-photo" role="img" aria-label={member.photo ? `${member.name} portrait` : `${member.name} initials placeholder`}>
+                    {member.photo ? <img src={member.photo} alt={`${member.name}`} /> : <span>{member.name.split(" ").map((part) => part[0]).slice(0, 2).join("")}</span>}
+                    {index === 0 && <span className="owner-label">OWNER</span>}
+                  </div>
+                  <div className="team-info">
+                    <h3>{member.name}</h3><p className="team-title">{member.title}</p>
+                    {member.experience && <p className="team-experience">{member.experience}</p>}
+                    {member.linkedin && <a className="linkedin-link" href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${member.name} on LinkedIn`} data-testid={`link-linkedin-${index}`}>View LinkedIn <span aria-hidden="true">↗</span></a>}
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="section process" id="process">
           <div className="wrap">
-            <div className="section-heading">
-              <div><div className="eyebrow">Shuru karna hai asaan</div><h2 className="display">Chaar qadam.<br />Koi mushkil nahi.</h2></div>
-              <p>Har naya kaam ek guftagu se shuru hota hai. Aap apni zaroorat batayein, phir agla qadam saaf ho jata hai.</p>
+            <div className="section-heading process-heading reveal">
+              <div><div className="eyebrow"><span className="eyebrow-line" />A clear way forward</div><h2>Our Success Model</h2></div>
+              <p>We support your global job search. Once you are hired, we charge a simple 10% commission on your first month's salary.</p>
             </div>
             <div className="steps">
-              <article className="step"><span className="step-number">Qadam 01</span><h3>Baat batayein</h3><p>Apni zaroorat ya sawal ka chhota sa khulasa dein.</p></article>
-              <article className="step"><span className="step-number">Qadam 02</span><h3>Mil kar samjhein</h3><p>Hum aapki baat sun kar munasib options par guftagu karenge.</p></article>
-              <article className="step"><span className="step-number">Qadam 03</span><h3>Tafseel tay karein</h3><p>Kaam, waqt aur baqi zaroori baatein pehle wazeh hongi.</p></article>
-              <article className="step"><span className="step-number">Qadam 04</span><h3>Kaam aage barhe</h3><p>Sab baat samajh aaye, tab mil kar agla qadam lein.</p></article>
+              {[
+                ["01", "Free Resume Review"],
+                ["02", "Profile and Documents Built"],
+                ["03", "Job Applications Submitted"],
+                ["04", "You Get Hired, Simple 10% Commission"],
+              ].map(([number, title]) => <article className="step reveal" key={number} data-testid={`step-process-${number}`}><span className="step-number">{number}</span><span className="step-rule" /><h3>{title}</h3></article>)}
             </div>
           </div>
         </section>
 
-        <section className="note-band">
-          <div className="wrap note-inner">
-            <div><h2 className="display">Har sawal ki jagah hai.<br />Baat karne se shuru karein.</h2><p>Koi commitment nahi — pehle bas apni zaroorat share karein.</p></div>
-            <a className="button" href="#contact">Rabtay ki tafseel <span aria-hidden="true">↗</span></a>
-          </div>
-        </section>
-
-        <section className="section" id="faq">
-          <div className="wrap faq-grid">
-            <div>
-              <div className="eyebrow">Zehan mein sawal?</div>
-              <h2 className="display">Pehle se jaan lein.</h2>
-              <p className="faq-intro">Aam sawalon ke jawab yahan diye gaye hain. Apni service ke hisaab se inhein edit karein.</p>
+        <section className="contact-section section" id="contact">
+          <div className="wrap contact-layout">
+            <div className="contact-copy reveal">
+              <div className="eyebrow"><span className="eyebrow-line" />Let's connect</div>
+              <h2>Your next move<br />starts <em>here.</em></h2>
+              <p>Tell us what you’re looking for. Your message will open in WhatsApp so you can send it directly.</p>
+              <a className="contact-review-link" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-contact-review">Book Free Resume Review <span aria-hidden="true">↗</span></a>
+              <div className="contact-details">
+                <a href="mailto:globalcareerstudio@gmail.com" data-testid="link-email"><span className="detail-icon" aria-hidden="true">@</span><span><small>Email</small>globalcareerstudio@gmail.com</span></a>
+                <a href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp"><span className="detail-icon" aria-hidden="true"><SiWhatsapp /></span><span><small>WhatsApp</small>+923378029920</span></a>
+              </div>
             </div>
-            <div className="faq-list">
-              <details className="faq-item"><summary>Apni service ke baare mein kaise poochun?</summary><p>Rabtay ke diye gaye zariye se apna sawal bhejein ya call karein. Apni zaroorat ka chhota sa khulasa dena kaafi hai.</p></details>
-              <details className="faq-item"><summary>Kaam shuru karne se pehle kya maloom hoga?</summary><p>Kaam ki tafseel, dastiyabi aur doosri zaroori baatein pehle guftagu mein wazeh kar lein. Yahan apni asal policy add karein.</p></details>
-              <details className="faq-item"><summary>Kya main apni zaroorat ke mutabiq mashwara le sakta hoon?</summary><p>Ji haan, pehle apni baat share karein. Aap mil kar tay kar sakte hain ke agla munasib qadam kya hai.</p></details>
-              <details className="faq-item"><summary>Rabtay ke liye kya tafseel bhejun?</summary><p>Apna naam, rabtay ka tareeqa aur zaroorat ka mukhtasar bayan bhejna madadgar hota hai. Sensitive maloomat share na karein.</p></details>
-            </div>
-          </div>
-        </section>
-
-        <section className="contact" id="contact">
-          <div className="wrap contact-card">
-            <div>
-              <div className="eyebrow">Aapki baari</div>
-              <h2 className="display">Baat yahin<br />se shuru karein.</h2>
-              <p>Apni asal contact details neeche add karein. Filhaal yeh editable placeholders hain — koi form submit ya fake contact link nahi.</p>
-              <a className="button" href="#home">Wapas shuru par <span aria-hidden="true">↑</span></a>
-            </div>
-            <div className="contact-options">
-              <div className="contact-item"><span className="contact-icon" aria-hidden="true">↗</span><div><strong>Phone / WhatsApp</strong><span>[Apna phone number yahan likhein]</span></div></div>
-              <div className="contact-item"><span className="contact-icon" aria-hidden="true">@</span><div><strong>Email</strong><span>[Apna email address yahan likhein]</span></div></div>
-              <div className="contact-item"><span className="contact-icon" aria-hidden="true">⌖</span><div><strong>Jagah</strong><span>[Apna shehar ya ilaqa yahan likhein]</span></div></div>
-              <div className="contact-item"><span className="contact-icon" aria-hidden="true">◷</span><div><strong>Auqaat</strong><span>[Apne kaam ke auqaat yahan likhein]</span></div></div>
-            </div>
+            <form className="contact-form reveal delay-1" onSubmit={submitContact} data-testid="form-contact">
+              <div className="form-heading"><span>Send a message</span><span className="form-index">01 — 03</span></div>
+              <label htmlFor="contact-name">Your name</label>
+              <input id="contact-name" name="name" type="text" autoComplete="name" placeholder="Name" required data-testid="input-contact-name" />
+              <label htmlFor="contact-email">Email address</label>
+              <input id="contact-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required data-testid="input-contact-email" />
+              <label htmlFor="contact-message">How can we help?</label>
+              <textarea id="contact-message" name="message" rows={4} placeholder="Write your message…" required data-testid="input-contact-message" />
+              <button className="button button-primary form-submit" type="submit" data-testid="button-contact-submit">Continue to WhatsApp <span aria-hidden="true">↗</span></button>
+              <p className="form-note">Your message details are added to a WhatsApp chat for you to send.</p>
+            </form>
           </div>
         </section>
       </main>
 
       <footer className="footer">
-        <div className="wrap footer-inner">
-          <a className="brand" href="#home"><span className="brand-mark">A</span><span>Aapka Business</span></a>
-          <span>Apna kaam, apne logon ke liye.</span>
-          <div className="footer-links"><a href="#services">Khidmaat</a><a href="#about">Ta'aruf</a><a href="#contact">Rabita</a></div>
+        <div className="wrap footer-main">
+          <div className="footer-brand-block">
+            <a className="brand footer-brand" href="#home" data-testid="link-footer-home"><span className="brand-mark" aria-hidden="true">G</span><span>Global Career <b>Studio</b></span></a>
+            <a className="footer-domain" href="https://globalcareerstudio.com" data-testid="link-domain">globalcareerstudio.com</a>
+          </div>
+          <nav className="footer-socials" aria-label="Social media">
+            {SOCIALS.map((social) => <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" data-testid={`link-social-${social.name.toLowerCase()}`}>{social.name === "Facebook" ? <SiFacebook aria-hidden="true" /> : social.name === "Instagram" ? <SiInstagram aria-hidden="true" /> : social.name === "X" ? <SiX aria-hidden="true" /> : <FaLinkedinIn aria-hidden="true" />}<span>{social.name}</span><span aria-hidden="true">↗</span></a>)}
+          </nav>
+          <a className="footer-review" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-footer-review">Book Free Resume Review <span aria-hidden="true">↗</span></a>
         </div>
+        <div className="wrap footer-contact-links">
+          <a href="mailto:globalcareerstudio@gmail.com" data-testid="link-footer-email"><Mail size={14} aria-hidden="true" /> globalcareerstudio@gmail.com</a>
+          <a href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-footer-whatsapp"><SiWhatsapp aria-hidden="true" /> +923378029920</a>
+        </div>
+        <div className="wrap footer-bottom"><span>© 2026 Global Career Studio. All rights reserved.</span><a href="#home" data-testid="link-back-top">Back to top ↑</a></div>
       </footer>
+      <a className="whatsapp-float" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" aria-label="Book a free resume review on WhatsApp" data-testid="button-fixed-whatsapp">
+        <SiWhatsapp className="whatsapp-symbol" aria-hidden="true" /><span>Free resume review</span>
+      </a>
     </div>
   );
 }

@@ -1,0 +1,77 @@
+Build a modern, professional, fully responsive single-page website for "Global Career Studio", a global career services agency. Use React + Tailwind CSS (or plain HTML/CSS/JS if simpler). Smooth scrolling, sticky header, clean corporate design.
+
+DESIGN
+- Colors: deep navy (#0B1F3A) as primary, teal or gold accent, white and light grey backgrounds
+- Fonts: Inter or Poppins from Google Fonts
+- Rounded cards, soft shadows, subtle fade-in on scroll, mobile first
+- Floating WhatsApp button fixed at bottom right on every screen
+
+HEADER AND NAVIGATION
+- Logo text: "Global Career Studio"
+- Links (smooth scroll): Home, Services, Team, Contact
+- Right side button: "Book Free Resume Review" (opens WhatsApp)
+- Mobile hamburger menu
+
+HERO SECTION
+- Headline: Transform Your Career Globally
+- Subheadline: Professional Resume Writing, Cover Letter, and LinkedIn Optimization tailored for European and international industries to land your dream remote job.
+- Primary button: "Get Started Today" (opens WhatsApp)
+- Secondary button: "Book Free Resume Review" (opens WhatsApp)
+- Small trust line under buttons: "ATS-Optimized | Globally Focused | Success-Based Model"
+
+SERVICES SECTION (5 cards with icons)
+1. Resume Writing: Crafting ATS-friendly resumes designed to attract top recruiters worldwide.
+2. Cover Letter: Compelling and custom cover letters highlighting your unique skills.
+3. LinkedIn Optimization: Enhancing your profile to stand out in the global job market.
+4. Job Application Assistance: We proactively apply for relevant jobs for you in various industries.
+5. Portfolio & Samples: Explore our successful resume and cover letter templates. (Add a placeholder gallery with a "View Samples" button)
+
+FREE RESUME REVIEW BANNER
+- Eye-catching strip: "Not sure where your resume stands? Get a free expert review."
+- Button: "Book Free Resume Review on WhatsApp"
+
+ABOUT US AND TEAM SECTION
+- Owner card first and larger: Liaqat Ali, Agency Owner (placeholder photo circle)
+- Grid of team member cards, each with a placeholder photo (initials avatar), name, title, experience, and a "View LinkedIn" button opening in a new tab:
+
+1. Sami Ullah Shah | Senior ATS Resume & LinkedIn Optimization Specialist | 7+ Years | https://www.linkedin.com/in/sami-ullah-shah-a0b921207/
+2. Shuja Uddin | Senior ATS Resume & LinkedIn Optimization Specialist | 9+ Years | https://www.linkedin.com/in/shuja-uddin-5a0361236/
+3. Nisar Ahmed | Senior ATS Resume & LinkedIn Optimization Specialist | 10+ Years | https://www.linkedin.com/in/nisar-ahmed-498130244/
+4. Uzair Ahmed | ATS Resume Writer & LinkedIn Optimization Specialist | 5+ Years | https://www.linkedin.com/in/uzair-ahmed-0bb75b257/
+5. Uzair Farooq | Professional Resume Writer & LinkedIn Profile Optimization Expert | 5+ Years | https://www.linkedin.com/in/uzair-farooq-240246260/
+6. Mehr Biyar | ATS Resume & LinkedIn Optimization Expert | 5+ Years | https://www.linkedin.com/in/mehr-biyar-6a3339257/
+7. Waqas Hassni | Professional Resume Writer & LinkedIn Optimization Expert | 5+ Years | https://www.linkedin.com/in/waqas-hassni-758331246/
+8. Muhammad Arsalan | Resume Writer, LinkedIn Profile Specialist & Cover Letter Expert | 5+ Years | https://www.linkedin.com/in/muhammad-arsalan-9765092a0/
+9. Sudais Ahmed | Professional Resume Writer & LinkedIn Specialist | 5+ Years | https://www.linkedin.com/in/sudais-ahmed/
+10. Mudassir Ahmed | ATS Resume Specialist, LinkedIn Optimization Expert & Cover Letter Strategist | 5+ Years | https://www.linkedin.com/in/mudassir-ahmed-b7485b35a/
+
+- Make photos easy to replace: keep all team data in one array/config object at the top of the file with fields name, title, experience, linkedin, photo.
+
+PROCESS AND COMMISSION SECTION
+- Title: Our Success Model
+- Text: We support your global job search. Once you are hired, we charge a simple 10% commission on your first month's salary.
+- Show a simple 4-step visual process: 1) Free Resume Review, 2) Profile and Documents Built, 3) Job Applications Submitted, 4) You Get Hired, Simple 10% Commission
+
+CONTACT SECTION
+- Email: globalcareerstudio@gmail.com (mailto link)
+- WhatsApp: +923378029920 (click to chat)
+- Contact form with name, email, message, which opens a mailto or WhatsApp message (no backend needed)
+- Button: "Book Free Resume Review"
+
+WHATSAPP LINK (use for every WhatsApp button)
+https://wa.me/923378029920?text=Hello%20Global%20Career%20Studio%2C%20I%20would%20like%20to%20book%20a%20free%20resume%20review.
+
+FOOTER
+- Follow us icons (open in new tab):
+  - Facebook: https://web.facebook.com/profile.php?id=61574395491287
+  - Instagram: https://www.instagram.com/globalcareerstudio/
+  - X (Twitter): https://x.com/GlobalCareer001
+  - LinkedIn Business Page: https://www.linkedin.com/company/globalcareerstudio
+- Email and WhatsApp repeated
+- Website: globalcareerstudio.com
+- Copyright line: © 2026 Global Career Studio. All rights reserved.
+
+TECHNICAL
+- SEO: title "Global Career Studio | ATS Resume Writing, Cover Letters & LinkedIn Optimization", meta description, Open Graph tags
+- Fast loading, accessible, alt text on all images
+- Do not invent testimonials, statistics, or client names. Use placeholders only where content is not provided.
