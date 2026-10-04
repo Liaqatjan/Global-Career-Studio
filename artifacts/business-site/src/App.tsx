@@ -6,6 +6,9 @@ import { FaLinkedinIn } from "react-icons/fa6";
 const WHATSAPP_REVIEW_URL =
   "https://wa.me/923378029920?text=Hello%20Global%20Career%20Studio%2C%20I%20would%20like%20to%20book%20a%20free%20resume%20review.";
 const WHATSAPP_CHAT_URL = "https://wa.me/923378029920";
+const CONTACT_EMAIL = "gloabalcareerstudio@gmail.com";
+const BRAND_MARK_URL = `${import.meta.env.BASE_URL}images/global-career-mark.webp`;
+const TEAM_PHOTO_BASE_URL = `${import.meta.env.BASE_URL}images/team/`;
 
 type TeamMember = {
   name: string;
@@ -15,19 +18,19 @@ type TeamMember = {
   photo: string | null;
 };
 
-// Keep the editable team records together; photos remain null until supplied.
+// Keep team records and profile image paths together for easy updates.
 const TEAM: TeamMember[] = [
-  { name: "Liaqat Ali", title: "Agency Owner", experience: "", linkedin: null, photo: null },
-  { name: "Sami Ullah Shah", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "7+ Years", linkedin: "https://www.linkedin.com/in/sami-ullah-shah-a0b921207/", photo: null },
-  { name: "Shuja Uddin", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "9+ Years", linkedin: "https://www.linkedin.com/in/shuja-uddin-5a0361236/", photo: null },
-  { name: "Nisar Ahmed", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "10+ Years", linkedin: "https://www.linkedin.com/in/nisar-ahmed-498130244/", photo: null },
-  { name: "Uzair Ahmed", title: "ATS Resume Writer & LinkedIn Optimization Specialist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/uzair-ahmed-0bb75b257/", photo: null },
-  { name: "Uzair Farooq", title: "Professional Resume Writer & LinkedIn Profile Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/uzair-farooq-240246260/", photo: null },
-  { name: "Mehr Biyar", title: "ATS Resume & LinkedIn Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/mehr-biyar-6a3339257/", photo: null },
-  { name: "Waqas Hassni", title: "Professional Resume Writer & LinkedIn Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/waqas-hassni-758331246/", photo: null },
-  { name: "Muhammad Arsalan", title: "Resume Writer, LinkedIn Profile Specialist & Cover Letter Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/muhammad-arsalan-9765092a0/", photo: null },
-  { name: "Sudais Ahmed", title: "Professional Resume Writer & LinkedIn Specialist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/sudais-ahmed/", photo: null },
-  { name: "Mudassir Ahmed", title: "ATS Resume Specialist, LinkedIn Optimization Expert & Cover Letter Strategist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/mudassir-ahmed-b7485b35a/", photo: null },
+  { name: "Liaqat Ali", title: "Founder & Agency Owner", experience: "", linkedin: null, photo: `${TEAM_PHOTO_BASE_URL}liaqat-ali.webp` },
+  { name: "Sami Ullah Shah", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "7+ Years", linkedin: "https://www.linkedin.com/in/sami-ullah-shah-a0b921207/", photo: `${TEAM_PHOTO_BASE_URL}sami-ullah-shah.webp` },
+  { name: "Shuja Uddin", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "9+ Years", linkedin: "https://www.linkedin.com/in/shuja-uddin-5a0361236/", photo: `${TEAM_PHOTO_BASE_URL}shuja-uddin.webp` },
+  { name: "Nisar Ahmed", title: "Senior ATS Resume & LinkedIn Optimization Specialist", experience: "10+ Years", linkedin: "https://www.linkedin.com/in/nisar-ahmed-498130244/", photo: `${TEAM_PHOTO_BASE_URL}nisar-ahmed.webp` },
+  { name: "Uzair Ahmed", title: "ATS Resume Writer & LinkedIn Optimization Specialist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/uzair-ahmed-0bb75b257/", photo: `${TEAM_PHOTO_BASE_URL}uzair-ahmed.webp` },
+  { name: "Uzair Farooq", title: "Professional Resume Writer & LinkedIn Profile Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/uzair-farooq-240246260/", photo: `${TEAM_PHOTO_BASE_URL}uzair-farooq.webp` },
+  { name: "Mehr Biyar", title: "ATS Resume & LinkedIn Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/mehr-biyar-6a3339257/", photo: `${TEAM_PHOTO_BASE_URL}mehr-biyar.webp` },
+  { name: "Waqas Hassni", title: "Professional Resume Writer & LinkedIn Optimization Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/waqas-hassni-758331246/", photo: `${TEAM_PHOTO_BASE_URL}waqas-hassni.webp` },
+  { name: "Muhammad Arsalan", title: "Resume Writer, LinkedIn Profile Specialist & Cover Letter Expert", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/muhammad-arsalan-9765092a0/", photo: `${TEAM_PHOTO_BASE_URL}muhammad-arsalan.webp` },
+  { name: "Sudais Ahmed", title: "Professional Resume Writer & LinkedIn Specialist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/sudais-ahmed/", photo: `${TEAM_PHOTO_BASE_URL}sudais-ahmed.webp` },
+  { name: "Mudassir Ahmed", title: "ATS Resume Specialist, LinkedIn Optimization Expert & Cover Letter Strategist", experience: "5+ Years", linkedin: "https://www.linkedin.com/in/mudassir-ahmed-b7485b35a/", photo: `${TEAM_PHOTO_BASE_URL}mudassir-ahmed.webp` },
 ];
 
 const SERVICES = [
@@ -85,7 +88,7 @@ function App() {
       <header className="header">
         <div className="wrap header-inner">
           <a className="brand" href="#home" aria-label="Global Career Studio home" data-testid="link-home">
-            <span className="brand-mark" aria-hidden="true">G</span>
+            <img className="brand-mark" src={BRAND_MARK_URL} alt="" />
             <span>Global Career <b>Studio</b></span>
           </a>
           <button
@@ -244,7 +247,7 @@ function App() {
               <p>Tell us what you’re looking for. Your message will open in WhatsApp so you can send it directly.</p>
               <a className="contact-review-link" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-contact-review">Book Free Resume Review <span aria-hidden="true">↗</span></a>
               <div className="contact-details">
-                <a href="mailto:globalcareerstudio@gmail.com" data-testid="link-email"><span className="detail-icon" aria-hidden="true">@</span><span><small>Email</small>globalcareerstudio@gmail.com</span></a>
+                <a href={`mailto:${CONTACT_EMAIL}`} data-testid="link-email"><span className="detail-icon" aria-hidden="true">@</span><span><small>Email</small>{CONTACT_EMAIL}</span></a>
                 <a href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-whatsapp"><span className="detail-icon" aria-hidden="true"><SiWhatsapp /></span><span><small>WhatsApp</small>+923378029920</span></a>
               </div>
             </div>
@@ -266,7 +269,7 @@ function App() {
       <footer className="footer">
         <div className="wrap footer-main">
           <div className="footer-brand-block">
-            <a className="brand footer-brand" href="#home" data-testid="link-footer-home"><span className="brand-mark" aria-hidden="true">G</span><span>Global Career <b>Studio</b></span></a>
+            <a className="brand footer-brand" href="#home" data-testid="link-footer-home"><img className="brand-mark" src={BRAND_MARK_URL} alt="" /><span>Global Career <b>Studio</b></span></a>
             <a className="footer-domain" href="https://globalcareerstudio.com" data-testid="link-domain">globalcareerstudio.com</a>
           </div>
           <nav className="footer-socials" aria-label="Social media">
@@ -275,7 +278,7 @@ function App() {
           <a className="footer-review" href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-footer-review">Book Free Resume Review <span aria-hidden="true">↗</span></a>
         </div>
         <div className="wrap footer-contact-links">
-          <a href="mailto:globalcareerstudio@gmail.com" data-testid="link-footer-email"><Mail size={14} aria-hidden="true" /> globalcareerstudio@gmail.com</a>
+          <a href={`mailto:${CONTACT_EMAIL}`} data-testid="link-footer-email"><Mail size={14} aria-hidden="true" /> {CONTACT_EMAIL}</a>
           <a href={WHATSAPP_REVIEW_URL} target="_blank" rel="noopener noreferrer" data-testid="link-footer-whatsapp"><SiWhatsapp aria-hidden="true" /> +923378029920</a>
         </div>
         <div className="wrap footer-bottom"><span>© 2026 Global Career Studio. All rights reserved.</span><a href="#home" data-testid="link-back-top">Back to top ↑</a></div>
