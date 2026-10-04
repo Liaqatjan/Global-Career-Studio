@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Business Website"
+description = "A responsive, easy-to-customize website for a small business or service, with clear service details and contact calls to action."
+version = "1.0.0"
+id = "artifacts/business-site"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21868
+
+[services.development]
+run = "pnpm --filter @workspace/business-site run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/business-site", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/business-site/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21868"
+BASE_PATH = "/"
